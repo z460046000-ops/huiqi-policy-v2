@@ -138,7 +138,7 @@
       const actions=item.kind==='condition'
         ?(item.status==='ready'?'':`<button type="button" class="text-button" data-action="mark-checked" data-task="${E(task.id)}" data-id="${E(item.id)}">我已核对</button>`)
         :`${item.status==='ready'?`<button type="button" class="text-button" data-action="material-review" ${attrs}>看解析</button>`:''}<label class="chat-gap-upload">${item.status==='ready'?'重新上传':'上传'}<input type="file" data-source-upload ${attrs} accept=".doc,.docx,.txt,.htm,.html,.pdf,.jpg,.jpeg,.png" aria-label="上传${E(item.label)}"></label>${item.status==='ready'?'':`<button type="button" class="text-button" data-action="mark-ready" data-task="${E(task.id)}" data-id="${E(item.id)}">用示例</button>`}`;
-      return `<li class="chat-gap-row" data-status="${E(item.status)}"><div class="chat-gap-main"><strong>${E(item.label)}</strong><span class="chat-gap-state">${E(labelOf(item))}</span><span class="chat-gap-actions">${actions}</span></div>${note?`<small class="chat-gap-note">${E(note)}</small>`:''}</li>`;
+      return `<li class="chat-gap-row" data-status="${E(item.status)}"><div class="chat-gap-main"><strong class="chat-gap-item-name"><span class="chat-gap-check" aria-hidden="true">${item.status==='ready'?U().icon('check'):''}</span><span>${E(item.label)}</span></strong><span class="chat-gap-state">${E(labelOf(item))}</span><span class="chat-gap-actions">${actions}</span></div>${note?`<small class="chat-gap-note">${E(note)}</small>`:''}</li>`;
     }).join('');
     const optional=task.requirements.filter(item=>item.kind==='material'&&item.required===false);
     const conditions=task.requirements.filter(item=>item.kind==='condition');

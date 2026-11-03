@@ -201,13 +201,20 @@
     return { policyId: policy.id, status: 'processing', ...(changed ? applicationPatch(task, policy) : {}), steps: changed ? { match: true, diagnosis: false, assembly: false, review: false } : { match: true } };
   }
 
-  /* 差距清单上方：模板在哪、清单从哪来。 */
+  /* 材料清单先说明政策依据；办理渠道另放办理指引。 */
   function applicationIntro(task) {
     const policy = publicPolicies().find(item => item.id === task.policyId);
     if (!policy) return '';
     const app = policy.application;
-    if (!app) return `<div class="chat-gap-templates"><p>原文没有列出材料清单，下面是常用资料，仅供参考。</p><a href="${esc(policy.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看政策原文</a></div>`;
-    return `<div class="chat-gap-templates"><p>${esc(app.templateNote)}</p>${app.templates.map(item => `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.label)}</a>`).join('')}</div>`;
+    const source = `<a href="${esc(policy.sourceUrl)}" target="_blank" rel="noopener noreferrer">《${esc(policy.title)}》</a>`;
+    const downloads = (app?.templates || []).filter(item => /\.(zip|docx?|pdf)(?:[?#]|$)/i.test(item.url));
+    return `<div class="chat-gap-templates"><p>${app ? `根据${source}，需要准备以下资料：` : `${source}未列出具体材料清单，以下为常用资料，待按原文核对。`}</p>${downloads.map(item => `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.label)}</a>`).join('')}</div>`;
+  }
+
+  function applicationGuidance(policy) {
+    const app = policy?.application;
+    if (!app) return '';
+    return `<div class="chat-gap-templates guidance-policy-note">${app.templateNote ? `<p>${esc(app.templateNote)}</p>` : ''}${(app.templates || []).map(item => `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.label)}</a>`).join('')}</div>`;
   }
 
   function applicationNote(task, item) {
@@ -230,7 +237,7 @@
       { title: '到官方系统提交', detail: submit ? `${submit.name}，${deadline}截止` : '按政策指定的官方渠道办理', attrs: 'data-route="guidance"', state: '' },
     ];
     const card = `<ol class="guidance-list">${rows.map((row, index) => `<li><button type="button" class="guidance-step" ${row.attrs} data-task="${esc(task.id)}" data-work="${row.work || 'guidance'}"><span class="guidance-step-number">${index + 1}</span><span class="guidance-step-copy"><strong>${esc(row.title)}</strong><small>${esc(row.detail)}</small></span>${row.state ? `<span class="guidance-step-state${row.done ? ' is-done' : ''}">${esc(row.state)}</span>` : ''}${icon('arrow')}</button></li>`).join('')}</ol>`;
-    return assistantBubble(`接下来这样办，点开每一步看详情。`, card, 'guidance');
+    return assistantBubble(`接下来这样办，点开每一步看详情。`, card + applicationGuidance(open), 'guidance');
   }
 
   /* 打开材料时按这版内容重新估一次成功率。 */
