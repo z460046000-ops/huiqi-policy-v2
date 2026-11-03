@@ -1,0 +1,83 @@
+/* 首页：上面输入企业名称，下面五个步骤。卡片用图标表达任务，不放人像。 */
+.start-home{container-type:inline-size;display:grid;gap:20px;width:100%;max-width:1240px;margin-inline:auto}
+.start-hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,440px);align-items:center;gap:24px;min-height:340px;padding:44px 32px 44px 56px;overflow:hidden;border:1px solid #d9e5fb;border-radius:20px;background:linear-gradient(112deg,#e6efff 0%,#f4f8ff 52%,#dbe8ff 100%)}
+.start-hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(#b7ccf3 1px,transparent 1px);background-size:22px 22px;opacity:.55;-webkit-mask-image:linear-gradient(100deg,transparent 42%,#000 100%);mask-image:linear-gradient(100deg,transparent 42%,#000 100%);pointer-events:none}
+.start-hero-form{position:relative;z-index:1;width:100%;max-width:640px}
+.start-hero h1{margin:0;font-size:36px;line-height:1.3;font-weight:700;letter-spacing:0;color:#14233a}
+.start-hero p{margin:10px 0 26px;font-size:15px;line-height:1.6;color:#4f6280}
+.start-hero-field{display:flex;align-items:center;gap:8px;height:72px;padding:0 10px 0 22px;border:2px solid #2f6fe6;border-radius:16px;background:#fff;box-shadow:0 14px 34px rgba(31,95,214,.16);transition:box-shadow .15s}
+.start-hero-field:focus-within{box-shadow:0 0 0 4px rgba(31,95,214,.16),0 14px 34px rgba(31,95,214,.18)}
+.start-hero-field input{flex:1 1 auto;min-width:0;height:100%;padding:0;border:0;background:transparent;font-size:18px;color:#1d2733;outline:0}
+.start-hero-field input::placeholder{color:#94a1b3}
+.start-hero-field .button{flex:none;display:inline-flex;align-items:center;justify-content:center;border-radius:12px;box-shadow:none}
+.start-hero-field .start-hero-go{width:52px;height:52px;min-width:0;padding:0}
+.start-hero-field .icon{width:22px;height:22px}
+
+/* 主视觉插画：素材见 assets/start-art/source.json */
+.start-art{position:relative;z-index:0;width:100%;aspect-ratio:440/280;align-self:center}
+.start-art svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.start-art ellipse{fill:none;stroke:#8fb0ec;stroke-width:1;stroke-dasharray:3 7}
+.start-art circle{fill:#2f6fe6}
+.start-art-item{position:absolute;height:auto;filter:drop-shadow(0 12px 16px rgba(20,62,150,.22));animation:start-art-float 7s ease-in-out infinite}
+.start-art-item.is-main{left:30%;top:9%;width:42%;animation-duration:9s}
+.start-art-item.is-a{left:72%;top:2%;width:20%;animation-delay:-1s}
+.start-art-item.is-b{left:9%;top:3%;width:20%;animation-delay:-3s}
+.start-art-item.is-c{left:2%;top:58%;width:21%;animation-delay:-5s}
+.start-art-item.is-d{left:78%;top:58%;width:19%;animation-delay:-2s}
+.start-art-item.is-e{left:24%;top:72%;width:13%;animation-delay:-4s}
+@keyframes start-art-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* 填完名称后原地展开 */
+.start-intake{margin-top:14px;padding:4px 16px 14px;border-radius:12px;background:#fff;font-size:12px;color:#445267;animation:start-intake-in .3s cubic-bezier(.2,.7,.2,1)}
+.start-intake .intake-question>legend{width:142px}
+.start-intake .intake-question:last-of-type{border-bottom:1px solid #e4e9f0}
+@keyframes start-intake-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+.start-steps>header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:8px 0 20px}
+.start-steps h2{margin:0;font-size:17px;line-height:1.4;font-weight:600;color:#1d2733}
+.start-steps>header>span{font-size:12px;color:#7a8797}
+.start-steps ol{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin:0;padding:0}
+.start-step{display:flex;flex-direction:column;min-width:0}
+.start-step-head{display:flex;align-items:center;gap:6px;margin:0 0 8px;padding-left:2px;font-size:12px;color:#62748b}
+.start-step-number{font-size:18px;line-height:1;font-weight:700;color:#3f6fc0;font-variant-numeric:tabular-nums}
+.start-step-arrow{display:inline-flex;margin-left:auto;color:#c2ccd9}
+.start-step-arrow .icon{width:14px;height:14px}
+.start-step-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;flex:1 1 auto;gap:6px;width:100%;min-height:172px;margin-top:32px;padding:44px 16px 14px;border:1px solid #e6ebf2;border-radius:14px;background:#f8fafc;text-align:left;color:inherit;cursor:pointer;transition:background .15s,border-color .15s,box-shadow .15s,transform .15s}
+.start-step-card:hover{border-color:#b9cdf0;background:#fff;box-shadow:0 8px 22px rgba(31,95,214,.08);transform:translateY(-2px)}
+.start-step-card:focus-visible{outline:2px solid #1f5fd6;outline-offset:2px}
+.start-step-icon{position:absolute;top:-32px;left:14px;display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#e6eefc;box-shadow:0 0 0 4px #fff;color:#1f5fd6;transition:background .15s,color .15s}
+.start-step-icon .icon{width:30px;height:30px;stroke-width:1.6}
+.start-step-card:hover .start-step-icon{background:#1f5fd6;color:#fff}
+.start-step-card>strong{font-size:15px;line-height:1.45;font-weight:600;color:#1d2733}
+.start-step-desc{font-size:12px;line-height:1.6;color:#62748b}
+.start-step-cta{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:auto;padding-top:10px;font-size:12px;font-weight:500;color:#2f5a9a}
+.start-step-cta .icon{width:14px;height:14px}
+
+@media (max-width:1100px){
+  .start-step-arrow{display:none}
+  .start-steps ol{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@container (max-width:780px){
+  .start-hero{grid-template-columns:minmax(0,1fr);gap:12px;padding:28px 32px 36px}
+  .start-art{order:-1;justify-self:center;width:min(100%,300px)}
+  .start-hero::before{-webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 55%);mask-image:linear-gradient(180deg,#000 0%,transparent 55%)}
+}
+@container (max-width:460px){
+  .start-art,.start-hero::before{display:none}
+}
+@media (max-width:700px){
+  .start-hero{min-height:0;padding:28px 16px}
+  .start-hero h1{font-size:26px}
+  .start-hero p{margin-bottom:18px;font-size:14px}
+  .start-hero-field{height:60px;padding-left:14px;border-radius:14px}
+  .start-hero-field input{font-size:16px}
+  .start-hero-field .start-hero-go{width:44px;height:44px}
+  .start-intake .intake-question>legend{width:auto}
+  .start-steps ol{grid-template-columns:minmax(0,1fr)}
+  .start-step-card{min-height:0}
+}
+@media (prefers-reduced-motion:reduce){
+    .start-intake,.start-art-item{animation:none}
+  .start-step-card,.start-step-icon,.start-hero-field{transition:none}
+  .start-step-card:hover{transform:none}
+}
