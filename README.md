@@ -1,6 +1,6 @@
 # 惠企政策平台 V2
 
-独立发布版本，对应本地 8768 项目。
+独立发布版本，对应本地 8769 的深蓝极光首页版本。
 
 - [访问首页](https://z460046000-ops.github.io/huiqi-policy-v2/#dashboard)
 - [访问落地页](https://z460046000-ops.github.io/huiqi-policy-v2/landing.html)

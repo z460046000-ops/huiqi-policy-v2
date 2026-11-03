@@ -2,12 +2,10 @@
   "source": "3dicons by Vijay Verma, https://3dicons.co/",
   "license": "CC0, per the licence statement on 3dicons.co",
   "files": {
-    "computer.webp": "https://3dicons.co/icons/5f20be-computer",
     "shield.webp": "https://3dicons.co/icons/b91186-shield",
     "target.webp": "https://3dicons.co/icons/49b6f4-target",
     "chat-bubble.webp": "https://3dicons.co/icons/eec43d-chat-bubble",
-    "setting.webp": "https://3dicons.co/icons/7e47be-setting",
     "folder.webp": "https://3dicons.co/icons/176980-folder"
   },
-  "changes": "Gradient style at 500px, white background removed, recolored to the platform blue."
+  "changes": "Gradient style at 500px, white background removed, recolored to a light blue for the dark hero."
 }
