@@ -412,19 +412,26 @@
     return { have, lack };
   }
 
-  const serviceOptions = {
-    patents:[['search','专利检索评估','先查技术方向与已有专利，明确值得准备的申请内容。',['技术方案与创新点','已有专利及检索记录','计划应用的产品或项目']],['file','专利申请辅导','梳理技术交底与申请资料，逐项确认需要补充的内容。',['技术交底书','研发过程与成果证明','申请主体与发明人信息']]],
-    copyrights:[['book','软件著作权资料梳理','核对软件说明和代码资料，整理登记准备清单。',['软件功能说明','代码资料','权属与开发记录']],['file','知识产权材料核对','对照企业已有成果，检查证明材料是否完整。',['已有登记证书','权属证明','成果与项目对应关系']]],
-    materials:[['file','申报材料整理','按本项政策清单归集文件，标出尚待补充的内容。',['企业基本资料','政策要求的附件','签字盖章材料']],['check','提交前材料核对','检查正文、附件和版本，形成提交前核对清单。',['拟提交的材料版本','附件与签章','提交时间与办理渠道']]],
-  };
+  const patentServices = [
+  {
+    "id": 481099123631909,
+    "name": "专利挖掘与技术交底书撰写辅导",
+    "description": "梳理技术创新点，辅导完成技术交底书撰写。",
+    "cover": "https://cdn-esp.wanmol.com/espprod/wlyd-oss-aiplatform-esp-public/114/20260921/147c9c9b-6cea-4471-a022-e7d524a6f593/012_06%E5%B7%A6%E5%AF%B9%E9%BD%90%E5%BA%8F%E5%8F%B7%E5%88%97%E4%B8%BE_%E4%B8%93%E5%88%A9%E6%8C%96%E6%8E%98%E4%B8%8E%E6%8A%80%E6%9C%AF%E4%BA%A4%E5%BA%95%E4%B9%A6%E6%92%B0%E5%86%99%E8%BE%85%E5%AF%BC.png"
+  },
+  {
+    "id": 474618015867237,
+    "name": "高价值发明专利申请 （含专利挖掘或检索）",
+    "description": "结合技术交底与检索结果，撰写发明专利申请文件。",
+    "cover": "https://cdn-esp.wanmol.com/espprod/wlyd-oss-aiplatform-esp-public/114/20260911/257e750e-cdf3-4595-9d3d-6c85725ce463/%E9%AB%98%E4%BB%B7%E5%80%BC%E5%8F%91%E6%98%8E%E4%B8%93%E5%88%A9%E7%94%B3%E8%AF%B7.png"
+  }
+];
+  const patentServiceDestination = 'https://www.wdsheng.com/employer/find-service/detail/479304003798693';
   function recommendationMarkup(task,policy,rows) {
     if(!task.id)return '';
-    const metric=rows.find(row=>row.metric && row.metric.have!==null && row.metric.have<row.metric.need && ['patents','copyrights'].includes(row.key));
-    const materials=rows.find(row=>row.key==='materials');
-    const kind=metric?.key || (materials.total>materials.ready?'materials':'');
-    if(!kind)return '';
-    const title=metric?`还差 ${metric.metric.need-metric.metric.have} ${metric.key==='patents'?'项专利':'项软件著作权'}，看看如何补齐`:`还有 ${materials.total-materials.ready} 项材料待准备`;
-    return `<section class="interpret-services" aria-labelledby="interpret-services-title"><div class="interpret-section-heading"><span>03</span><div><h3 id="interpret-services-title">${esc(title)}</h3><p>针对当前缺口，了解可获得的服务支持。</p></div></div><div class="interpret-service-grid">${serviceOptions[kind].map(([symbol,title,description,needs],i)=>`<article class="interpret-service-card"><div class="interpret-service-cover tone-${i}" aria-hidden="true"><span class="service-paper">${icon(symbol)}<i></i><i></i></span><span class="service-cover-label">${i?'资料准备':'梳理与核对'}</span></div><div class="interpret-service-copy"><h4>${title}</h4><p>${description}</p><details><summary>查看服务 ${icon('arrow')}</summary><div class="service-details"><strong>咨询前可准备</strong><ul>${needs.map(need=>`<li>${need}</li>`).join('')}</ul><p>服务内容与交付范围需进一步沟通确认。</p></div></details></div></article>`).join('')}</div></section>`;
+    const patents=rows.find(row=>row.key==='patents'&&row.metric?.have!==null&&row.metric?.have<row.metric?.need);
+    const title=patents?`还差 ${patents.metric.need-patents.metric.have} 项专利，看看如何补齐`:'专利撰写服务';
+    return `<section class="interpret-services" aria-labelledby="interpret-services-title"><div class="interpret-section-heading"><span>03</span><div><h3 id="interpret-services-title">${esc(title)}</h3><p>万大圣 · 专业知识产权服务</p></div></div><div class="interpret-service-grid">${patentServices.map(service=>`<a class="interpret-service-card is-marketplace" href="${patentServiceDestination}" target="_blank" rel="noopener noreferrer"><img class="interpret-service-thumbnail" src="${esc(service.cover)}" alt="" loading="lazy" width="76" height="76"><div class="interpret-service-copy"><h4>${esc(service.name)}</h4><p>${esc(service.description)}</p><span class="interpret-service-entry">查看服务 ${icon('arrow')}</span></div></a>`).join('')}</div></section>`;
   }
   function interpretFooter(task,policy) {
     const status=statusOf(policy),chosen=task.steps.match&&task.policyId===policy.id;
